@@ -24,8 +24,16 @@ public class VilleBLOImpl implements VilleBLO {
 		return ville;
 	}
 
-	public void setInfoVille(Ville ville) {
-		villeDAO.createVille(ville);
+	public void ajoutVille(Ville ville) {
+		villeDAO.ajoutVille(ville);
+	}
+
+	public void majVille(Ville ville) {
+		villeDAO.majVille(ville);
+	}
+
+	public void delVille(Ville ville) {
+		villeDAO.delVille(ville);
 	}
 
 }

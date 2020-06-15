@@ -51,6 +51,8 @@ public class VilleDAOImpl implements VilleDAO {
 				ville.setCodePostal(results.getString("Code_postal"));
 				ville.setLibelleAcheminement(results.getString("Libelle_acheminement"));
 				ville.setLigne(results.getString("Ligne_5"));
+				ville.setLatitude(results.getString("Latitude"));
+				ville.setLongitude(results.getString("Longitude"));
 				Listeville.add(ville);
 		   }
 
@@ -60,19 +62,86 @@ public class VilleDAOImpl implements VilleDAO {
 		return Listeville;
 	}
 
-	@Override
-	public void createVille(Ville ville) {
+	public void ajoutVille(Ville ville) {
+		Connection con = JDBCConfiguration.getConnection();
+		
+		int results;
+		
+		String requete = "INSERT INTO ville_France (Code_commune_INSEE, Nom_commune, Code_postal,"
+				+ " Libelle_acheminement, Ligne_5, Latitude, Longitude) VALUES" + 
+				" ('"+ ville.getCodeCommune() 
+				+ "', '" + ville.getNomCommune() 
+				+ "', '" + ville.getCodePostal() 
+				+ "', '" + ville.getLibelleAcheminement() 
+				+ "', '" + ville.getLigne() 
+				+ "', '" + ville.getLatitude() 
+				+ "', '" + ville.getLongitude()
+				+ "')";
+		try {
+			System.out.println(requete);
+			Statement stmt = con.createStatement();
+			results = stmt.executeUpdate(requete);
+			if(results == 1) {
+				System.out.println("requete effectuée");
+			} else {
+				System.out.println("requete non effectuée");
+			}
+		} catch (SQLException e) {
+			  	//traitement de l'exception
+		}
+	}
+
+	public void majVille(Ville ville) {
+		Connection con = JDBCConfiguration.getConnection();
+		
+		int results;
+		
+		String requete = "UPDATE ville_France SET "
+				+ "Nom_commune = '" + ville.getNomCommune() 
+				+ "', Code_postal = '" + ville.getCodePostal() 
+				+ "', Libelle_acheminement = '" + ville.getLibelleAcheminement()
+				+ "', Ligne_5 = '" + ville.getLigne()
+				+ "', Latitude = '" + ville.getLatitude()
+				+ "', Longitude = '" + ville.getLongitude() 
+				+ "' WHERE Code_commune_INSEE = '" + ville.getCodeCommune() + "'";
+			
+		try {
+			System.out.println(requete);
+			Statement stmt = con.createStatement();
+			results = stmt.executeUpdate(requete);
+			if(results == 1) {
+				System.out.println("requete effectuée");
+			} else {
+				System.out.println("requete non effectuée");
+			}
+		} catch (SQLException e) {
+			  	//traitement de l'exception
+		}
+	}
+
+	public void delVille(Ville ville) {
 Connection con = JDBCConfiguration.getConnection();
 		
-		ResultSet results = null;
+		int results;
 		
-		String requete = "INSERT INTO client (Code_commune_INSEE, Nom_commune, Code_postal,"
-				+ " Libelle_acheminement, Ligne_5)" + 
-				" VALUES" + 
-				" ('Rébecca', 'Armand', 'Saint-Didier-des-Bois', 24)";
+		String requete = "DELETE FROM ville_France WHERE "
+				+ "Nom_commune = '" + ville.getNomCommune() 
+				+ "' AND Code_postal = '" + ville.getCodePostal() 
+				+ "' AND Libelle_acheminement = '" + ville.getLibelleAcheminement()
+				+ "' AND Ligne_5 = '" + ville.getLigne()
+				+ "' AND Latitude = '" + ville.getLatitude()
+				+ "' AND Longitude = '" + ville.getLongitude() 
+				+ "' AND Code_commune_INSEE = '" + ville.getCodeCommune() + "'";
+			
 		try {
-			   Statement stmt = con.createStatement();
-			   results = stmt.executeQuery(requete);
+			System.out.println(requete);
+			Statement stmt = con.createStatement();
+			results = stmt.executeUpdate(requete);
+			if(results == 1) {
+				System.out.println("requete effectuée");
+			} else {
+				System.out.println("requete non effectuée");
+			}
 		} catch (SQLException e) {
 			  	//traitement de l'exception
 		}

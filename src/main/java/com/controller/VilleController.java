@@ -37,12 +37,31 @@ class VilleController {
 	}
 	
 	// Methode POST
-		@RequestMapping(value = "/ville", method = RequestMethod.POST)
-		@ResponseBody
-		public void appelPost(@RequestBody Ville ville) {
-			System.out.println("Appel POST");
+	@RequestMapping(value = "/ville", method = RequestMethod.POST)
+	@ResponseBody
+	public void appelPost(@RequestBody Ville ville) {
+		System.out.println("Appel POST");
+		System.out.println(ville.getNomCommune());
+		villeBLOService.ajoutVille(ville);
 			
-			villeBLOService.setInfoVille(ville);
-
-		}
+	}
+	
+	// Methode PUT
+	@RequestMapping(value = "/ville", method = RequestMethod.PUT)
+	@ResponseBody
+	public void appelPut(@RequestBody Ville ville) {
+		System.out.println("Appel PUT");
+		System.out.println(ville.getNomCommune());
+		villeBLOService.majVille(ville);
+				
+	}
+	
+	// Methode PUT
+	@RequestMapping(value = "/ville", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void appelDelete(@RequestBody Ville ville) {
+		System.out.println("Appel DELETE");
+		System.out.println(ville.getNomCommune());
+		villeBLOService.delVille(ville);			
+	}
 }
