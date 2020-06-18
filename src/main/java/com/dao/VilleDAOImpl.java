@@ -37,14 +37,12 @@ public class VilleDAOImpl implements VilleDAO {
 		} else if (ligne != null) {
 			requete = requete + " WHERE Ligne_5 = '" + ligne + "'";
 		}
-		System.out.println(requete);
 
 		try {
 		   Statement stmt = con.createStatement();
 		   results = stmt.executeQuery(requete);
 		   
 		   while (results.next()) {
-				System.out.println("rep : " + results.getString("Nom_commune"));
 				ville = new Ville();
 				ville.setCodeCommune(results.getString("Code_commune_INSEE"));
 				ville.setNomCommune(results.getString("Nom_commune"));
